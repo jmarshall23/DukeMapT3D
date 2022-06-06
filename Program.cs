@@ -154,7 +154,7 @@ namespace DukeMapT3D
                     file.WriteLine("\t\t\t\tTextureU -00001.000000,+00000.000000,+00000.000000");
                     file.WriteLine("\t\t\t\tTextureV +00000.000000,+00001.000000,+00000.000000");
 
-                    for (int t = 2; t >= 0; t--)
+                    for (int t = 0; t < 3; t++)
                     {
                         Vector3 pt = xyz[plane.indexes[d + t]];
                         file.WriteLine("\t\t\t\tVertex   " + StupidFloatWriter(pt.X) + "," + StupidFloatWriter(pt.Y) + "," + StupidFloatWriter(pt.Z));
