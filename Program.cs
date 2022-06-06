@@ -47,6 +47,31 @@ namespace DukeMapT3D
             return s;
         }
 
+        static Vector3 CrossProduct(Vector3 v1, Vector3 v2)
+        {
+            float x, y, z;
+            x = v1.Y * v2.Z - v2.Y * v1.Z;
+            y = (v1.X * v2.Z - v2.X * v1.Z) * -1;
+            z = v1.X * v2.Y - v2.X * v1.Y;
+
+            var rtnvector = new Vector3(x, y, z);
+            return rtnvector;
+        }
+
+        static Vector3 Normalize(Vector3 v1)
+        {
+            float magnitude = (float)Math.Sqrt((v1.X * v1.X) + (v1.Y * v1.Y) + (v1.Z * v1.Z));
+
+            // find the inverse of the vectors magnitude
+            float inverse = 1 / magnitude;
+
+            return new Vector3(
+                // multiply each component by the inverse of the magnitude
+                v1.X * inverse,
+                v1.Y * inverse,
+                v1.Z * inverse);
+        }
+
         static void WriteT3D(string fileName)
         {
             StreamWriter file = new StreamWriter(fileName);
@@ -113,13 +138,23 @@ namespace DukeMapT3D
 
                 for (int d = 0; d < plane.indexes.Length; d+=3)
                 {
+                    Vector3 a = xyz[plane.indexes[d + 0]];
+                    Vector3 b = xyz[plane.indexes[d + 1]];
+                    Vector3 c = xyz[plane.indexes[d + 2]];
+
+                    Vector3 v = c - b;
+                    Vector3 v1 = a - b;
+
+                    Vector3 normal = Normalize(CrossProduct(v, v1));
+                   // normal.Normalize();
+
                     file.WriteLine("\t\t\tBegin Polygon Item=sky");
                     file.WriteLine("\t\t\t\tOrigin   +00000.000000,+00000.000000,+00000.000000");
-                    file.WriteLine("\t\t\t\tNormal   +00000.000000,+00000.000000,-00001.000000");
+                    file.WriteLine("\t\t\t\tNormal   " + StupidFloatWriter(normal.X) + "," + StupidFloatWriter(normal.Y) + "," + StupidFloatWriter(normal.Z));
                     file.WriteLine("\t\t\t\tTextureU -00001.000000,+00000.000000,+00000.000000");
                     file.WriteLine("\t\t\t\tTextureV +00000.000000,+00001.000000,+00000.000000");
 
-                    for (int t = 0; t < 3; t++)
+                    for (int t = 2; t >= 0; t--)
                     {
                         Vector3 pt = xyz[plane.indexes[d + t]];
                         file.WriteLine("\t\t\t\tVertex   " + StupidFloatWriter(pt.X) + "," + StupidFloatWriter(pt.Y) + "," + StupidFloatWriter(pt.Z));
