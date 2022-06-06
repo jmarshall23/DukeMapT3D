@@ -23,9 +23,9 @@ namespace DukeMapT3D
             268435456,536870912,1073741824,2147483647,
         };
 
-        public const int MAXSECTORS = 1024;
-        public const int MAXWALLS = 8192;
-        public const int MAXSPRITES = 4096;
+        public const int MAXSECTORS = 1024 * 8;
+        public const int MAXWALLS = 8192 * 8;
+        public const int MAXSPRITES = 4096 * 8;
 
         public const int MAXTILES = 9216;
         public const int MAXSTATUS = 1024;
