@@ -29,11 +29,11 @@ namespace DukeMapT3D
 
         public Vector3[] GetVertexes()
         {
-            Vector3[] vertices = new Vector3[3];
+            Vector3[] vertices = new Vector3[xyz.Length];
 
             for(int i = 0; i < xyz.Length; i++)
             {
-                vertices[i] = new Vector3(xyz[i].X * -Render3D.WorldScale, xyz[i].Y * Render3D.WorldScale, xyz[i].Z * Render3D.WorldScale);
+                vertices[i] = new Vector3(xyz[i].X * -Render3D.WorldScale, xyz[i].Z * Render3D.WorldScale, xyz[i].Y * Render3D.WorldScale);
             }
 
             return vertices;

@@ -18,7 +18,7 @@ namespace DukeMapT3D
         {
             get
             {
-                return 1.0f / 1000.0f;
+                return 1.0f / 100.0f;
             }
         }
 
