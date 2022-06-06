@@ -213,13 +213,13 @@ namespace DukeMapT3D
             }
 
             // read in the sprite sectors
-            numsprites = fil.kreadshort();
-            for (int i = 0; i < numsprites; i++)
-            {
-                sprite[i].Read(ref fil);
-                // sprite[i].sectnum = MAXSECTORS;
-                // sprite[i].statnum = MAXSTATUS;
-            }
+            //numsprites = fil.kreadshort();
+            //for (int i = 0; i < numsprites; i++)
+            //{
+            //    sprite[i].Read(ref fil);
+            //    // sprite[i].sectnum = MAXSECTORS;
+            //    // sprite[i].statnum = MAXSTATUS;
+            //}
 
            // for (int i = 0; i < numsprites; i++)
            //     insertsprite(sprite[i].sectnum, sprite[i].statnum);

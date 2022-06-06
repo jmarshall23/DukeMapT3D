@@ -53,60 +53,12 @@ namespace DukeMapT3D
 
         public void Update(float visibility, float shadeOffset, float palette, float curbasepal)
         {
-            bool changed = false;
-            bool changed_uvs = false;
-            for (int i = 0; i < cached_xyz.Length; i++)
-            {
-                if (cached_xyz[i] != xyz[i])
-                {
-                    changed = true;
-                }
-
-                if (cached_uv[i] != st[i])
-                {
-                    changed_uvs = true;
-                }
-            }
-
-            if (changed_uvs)
-            {
-                for (int i = 0; i < cached_xyz.Length; i++)
-                {
-                    cached_uv[i] = st[i];
-                }
-            }
-
-            if (changed)
-            {
-                for (int i = 0; i < cached_xyz.Length; i++)
-                {
-                    cached_xyz[i] = xyz[i];
-                }
-            }
-
-            Vector4 newParms = new Vector4(visibility, shadeOffset, palette, curbasepal);
-            if (_parms == newParms)
-                return;
-
-            _parms = newParms;
+           
         }
 
         public void Build(float visibility, float shadeOffset, float palette, float curbasepa)
         {
-            if (indexes == null)
-                return;
-
-            cached_xyz = new Vector3[xyz.Length];
-            for (int i = 0; i < cached_xyz.Length; i++)
-            {
-                cached_xyz[i] = xyz[i];
-            }
-
-            cached_uv = new Vector2[xyz.Length];
-            for (int i = 0; i < cached_uv.Length; i++)
-            {
-                cached_uv[i] = st[i];
-            }
+            
         }
     }
 }

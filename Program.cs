@@ -13,6 +13,7 @@ namespace DukeMapT3D
         static Board board;
         static int daposx, daposy, daposz;
         static short daang, dacursectnum;
+        static Render3D render;
 
         static void LoadBoard(string fileName)
         {
@@ -29,13 +30,24 @@ namespace DukeMapT3D
             {
                 throw new Exception("loadboard: failed to load board " + fileName);
             }
+
+            render = new Render3D();
+            render.LoadBoard(board, false);
         }
 
         static void Main(string[] args)
         {
-            string fileName = args[1];
+            if(args.Length == 0)
+            {
+                Console.WriteLine("Usage: DukeMapT3D.exe mapFile.map");
+                return;
+            }
+
+            string fileName = args[0];            
 
             table = new bTable();
+
+            pragmas.InitPragmas();
 
             LoadBoard(fileName);
         }
