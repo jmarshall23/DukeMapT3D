@@ -126,9 +126,9 @@ namespace DukeMapT3D
             {
                 int offset = tileData[i];
 
-                float r = scratchpal[(offset * 3) + 0] * 1.5f;
-                float g = scratchpal[(offset * 3) + 1] * 1.5f;
-                float b = scratchpal[(offset * 3) + 2] * 1.5f;
+                float r = scratchpal[(offset * 3) + 0] * 3.5f;
+                float g = scratchpal[(offset * 3) + 1] * 3.5f;
+                float b = scratchpal[(offset * 3) + 2] * 3.5f;
 
                 ColorShiftLightingBytes((int)r, (int)g, (int)b, out rgbaTextureData[(i * 4) + 0], out rgbaTextureData[(i * 4) + 1], out rgbaTextureData[(i * 4) + 2]);
 

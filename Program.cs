@@ -152,7 +152,7 @@ namespace DukeMapT3D
                     Vector3 normal = Normalize(CrossProduct(v, v1));
                    // normal.Normalize();
 
-                    file.WriteLine("\t\t\tBegin Polygon Item=sky");
+                    file.WriteLine("\t\t\tBegin Polygon Texture=" + plane.hdTile.filename);
                     file.WriteLine("\t\t\t\tOrigin   +00000.000000,+00000.000000,+00000.000000");
                     file.WriteLine("\t\t\t\tNormal   " + StupidFloatWriter(normal.X) + "," + StupidFloatWriter(normal.Y) + "," + StupidFloatWriter(normal.Z));
                     file.WriteLine("\t\t\t\tTextureU -00001.000000,+00000.000000,+00000.000000");

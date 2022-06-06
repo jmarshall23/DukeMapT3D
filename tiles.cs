@@ -37,9 +37,29 @@ namespace DukeMapT3D
             public int height;
             public byte[] buffer;
             public int listId;
+            public string filename;
         }
 
         private List<HdTile> hdTiles = new List<HdTile>();
+
+        public static void BlitImage2(byte[] source, int sourceX, int sourceY, int sourceWidth, byte[] dest, int destX, int destY, int destWidth, int destHeight, int width, int height, bool allowTrans = false)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    int _x = x * 4;
+                    int _y = y * 4;
+                    int destPos = 18 + (destWidth * ((((height - 1) * 4) - _y) + (destY * 1))) + (_x + (destX * 1));
+                    int sourcePos = (sourceWidth * (_y + (sourceY * 1))) + (_x + (sourceX * 1));
+
+                    dest[destPos + 0] = source[sourcePos + 2];
+                    dest[destPos + 1] = source[sourcePos + 1];
+                    dest[destPos + 2] = source[sourcePos + 0];
+                    dest[destPos + 3] = source[sourcePos + 3];
+                }
+            }
+        }
 
         /*
         ================
@@ -59,18 +79,13 @@ namespace DukeMapT3D
 	        buffer[14] = (byte)(height &255);
 	        buffer[15] = (byte)(height >>8);
 	        buffer[16] = 32;	// pixel siz e
-	        if ( !flipVertical ) {
-		        buffer[17] = (1<<5);	// flip bit, for normal top to bottom raster order
-	        }
+	       // if ( !flipVertical ) {
+		        buffer[17] = (1<<5);    // flip bit, for normal top to bottom raster order
+                                        //  }
 
-	        // swap rgb to bgr
-	        for ( i=imgStart ; i<bufferSize ; i+=4 ) {
-		        buffer[i] = data[i-imgStart+2];		// blue
-		        buffer[i+1] = data[i-imgStart+1];		// green
-		        buffer[i+2] = data[i-imgStart+0];		// red
-		        buffer[i+3] = data[i-imgStart+3];		// alpha
-	        }
-
+            // Unreal 1 is shit #10000
+            BlitImage2(data, 0, 0, width, buffer, 0, 0, width, height, width, height, false);
+            
             File.WriteAllBytes(filename, buffer);
         }
 
@@ -82,6 +97,15 @@ namespace DukeMapT3D
                 System.IO.Directory.CreateDirectory(folderName);
         }
 
+        int MakePowerOfTwo(int num)
+        {
+            int pot;
+            for (pot = 1; pot < num; pot <<= 1)
+            {
+            }
+            return pot;
+        }
+
         public void WriteAllTextureForMap(string mapName)
         {
             mapName = Path.GetFileNameWithoutExtension(mapName);
@@ -89,7 +113,15 @@ namespace DukeMapT3D
 
             foreach(HdTile tile in hdTiles)
             {
-                string textureName = mapName + "/tile" + tile.listId + ".tga";
+                string textureName = mapName + "/" + mapName + "_" + tile.listId + ".tga";
+                tile.filename = mapName + "_" + tile.listId;
+
+                int scaled_width = MakePowerOfTwo(tile.width);
+                int scaled_height = MakePowerOfTwo(tile.height);
+
+                if (tile.width != scaled_width || tile.height != scaled_height)
+                    continue;
+
                 WriteTGA(textureName, tile.buffer, tile.width, tile.height, false);
             }
         }
