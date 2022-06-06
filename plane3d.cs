@@ -18,6 +18,7 @@ namespace DukeMapT3D
         private bool isVisible;
         public int displayFrameId;
         private Render3D parent;
+        public Tiles.HdTile hdTile;
 
         public Plane3D(Render3D parent)
         {
@@ -41,7 +42,7 @@ namespace DukeMapT3D
 
         public void InitTexture(int tileNum)
         {
-
+            hdTile = Program.tiles.LoadHdTile(tileNum);
         }
 
         public void Init(int vertexcount)

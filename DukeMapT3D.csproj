@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="a-sharp.cs" />
     <Compile Include="Board.cs" />
     <Compile Include="Endian.cs" />
     <Compile Include="kfilesystem.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="LibTessDotNet\PriorityQueue.cs" />
     <Compile Include="LibTessDotNet\Sweep.cs" />
     <Compile Include="LibTessDotNet\Tess.cs" />
+    <Compile Include="Palette.cs" />
     <Compile Include="plane3d.cs" />
     <Compile Include="Pragmas.cs" />
     <Compile Include="Program.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="render3d.cs" />
     <Compile Include="Sector3D.cs" />
     <Compile Include="Table.cs" />
+    <Compile Include="tiles.cs" />
     <Compile Include="Wall3d.cs" />
   </ItemGroup>
   <ItemGroup>

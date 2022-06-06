@@ -948,8 +948,8 @@ namespace DukeMapT3D
                // s.floor.UpdateMaterial(sec.visibility, sec.floorshade, sec.ceilingpal, 0);
             }
 
-           // s.ceil.InitTexture(sec.ceilingpicnum);
-           // s.floor.InitTexture(sec.floorpicnum);
+            s.ceil.InitTexture(sec.ceilingpicnum);
+            s.floor.InitTexture(sec.floorpicnum);
 
             //finish:
             //

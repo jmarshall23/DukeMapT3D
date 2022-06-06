@@ -12,10 +12,14 @@ namespace DukeMapT3D
     {
         public static kFileSystem fileSystem = new kFileSystem();
         public static bTable table;
+        public static Palette dukePalette;
+        public static Tiles tiles;
+
         static Board board;
         static int daposx, daposy, daposz;
         static short daang, dacursectnum;
         static Render3D render;
+        
 
         static void LoadBoard(string fileName)
         {
@@ -120,7 +124,7 @@ namespace DukeMapT3D
 
                 if (plane.indexes == null)
                 {
-                    Console.WriteLine("WARNING: Plane Indexes null.");
+                 //   Console.WriteLine("WARNING: Plane Indexes null.");
                     continue;
                 }
 
@@ -185,10 +189,16 @@ namespace DukeMapT3D
             string fileName = args[0];            
 
             table = new bTable();
+            dukePalette = new Palette();
+            tiles = new Tiles();
 
             pragmas.InitPragmas();
 
+            tiles.loadpics("tiles000.art");
+
             LoadBoard(fileName);
+
+            tiles.WriteAllTextureForMap(fileName);
 
             WriteT3D(Path.ChangeExtension(fileName, ".t3d"));
         }
