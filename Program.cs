@@ -76,6 +76,48 @@ namespace DukeMapT3D
                 v1.Z * inverse);
         }
 
+        static void WriteGenericFormat(string fileName)
+        {
+            StreamWriter file = new StreamWriter(fileName);
+
+            // Write out each plane as a brush
+            for (int i = 0; i < render.planes.Count; i++)
+            {
+                Plane3D plane = render.planes[i];
+                Vector3[] xyz = plane.GetVertexes();
+
+                if (plane.indexes == null)
+                {
+                    //   Console.WriteLine("WARNING: Plane Indexes null.");
+                    continue;
+                }
+
+                file.WriteLine("Plane " + plane.hdTile.filename);
+                file.WriteLine("{");
+
+                for (int d = 0; d < plane.indexes.Length; d += 3)
+                {
+                    Vector3 a = xyz[plane.indexes[d + 0]];
+                    Vector3 b = xyz[plane.indexes[d + 1]];
+                    Vector3 c = xyz[plane.indexes[d + 2]];
+
+                    Vector3 v = c - b;
+                    Vector3 v1 = a - b;
+
+                    Vector3 normal = Normalize(CrossProduct(v, v1));
+
+                    for (int t = 0; t < 3; t++)
+                    {
+                        Vector3 pt = xyz[plane.indexes[d + t]];
+                        file.WriteLine("\txyz " + pt.X + " " + pt.Y + " " + pt.Z);
+                        file.WriteLine("\tnormal " + normal.X + " " + normal.Y + " " + normal.Z);
+                    }
+                }
+
+                file.WriteLine("}");               
+            }
+        }
+
         static void WriteT3D(string fileName)
         {
             StreamWriter file = new StreamWriter(fileName);
@@ -200,7 +242,7 @@ namespace DukeMapT3D
 
             tiles.WriteAllTextureForMap(fileName);
 
-            WriteT3D(Path.ChangeExtension(fileName, ".t3d"));
+            WriteGenericFormat(Path.ChangeExtension(fileName, ".planes"));
         }
     }
 }

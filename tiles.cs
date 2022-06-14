@@ -138,11 +138,11 @@ namespace DukeMapT3D
                 loadtile((short)tileNum);
 
             if (waloff[tileNum] == null)
-                return null;
+                throw new Exception("MISSING ART PLEASE MAKE SURE THE ART FILES MATCH THE MAP FILE!");
 
             byte[] tilebuffer = waloff[tileNum].memory;
             if (tilebuffer == null)
-                return null;
+                throw new Exception("MISSING ART PLEASE MAKE SURE THE ART FILES MATCH THE MAP FILE!");
 
             byte[] tempbuffer = new byte[tilesizx[tileNum] * tilesizy[tileNum]];
             int i, j, k;
